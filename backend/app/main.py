@@ -4,9 +4,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import get_settings
+from app.core.security import hash_password
 from app.db.session import Base, SessionLocal, engine
 from app.models import Doctor
-from app.core.security import hash_password
 from app.routers import analyze, auth, examinations, patients
 
 settings = get_settings()

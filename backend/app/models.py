@@ -1,15 +1,14 @@
 import enum
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
-from sqlalchemy import Boolean, DateTime, Enum, ForeignKey, Integer, String, Text
-from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy import JSON, Boolean, DateTime, Enum, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.session import Base
 
 
 def _utcnow() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 class ExaminationStatus(str, enum.Enum):
@@ -50,11 +49,14 @@ class Examination(Base):
     patient_id: Mapped[int] = mapped_column(ForeignKey("patients.id"), index=True)
     doctor_id: Mapped[int | None] = mapped_column(ForeignKey("doctors.id"), nullable=True)
 
-    raw_emg_data: Mapped[dict] = mapped_column(JSONB)
-    norms_snapshot: Mapped[dict] = mapped_column(JSONB)
+    raw_emg_data: Mapped[dict] = mapped_column(JSON)
+    norms_snapshot: Mapped[dict] = mapped_column(JSON)
     ai_draft_description: Mapped[str | None] = mapped_column(Text, nullable=True)
     final_description: Mapped[str | None] = mapped_column(Text, nullable=True)
-    status: Mapped[ExaminationStatus] = mapped_column(Enum(ExaminationStatus), default=ExaminationStatus.draft)
+    status: Mapped[ExaminationStatus] = mapped_column(
+        Enum(ExaminationStatus, native_enum=False, length=32),
+        default=ExaminationStatus.draft,
+    )
 
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_utcnow, onupdate=_utcnow)
