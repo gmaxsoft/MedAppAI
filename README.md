@@ -29,14 +29,19 @@ medappai/
 │   │   ├── services/       # Normy medyczne, anonimizacja RODO, wywołanie OpenAI
 │   │   ├── models.py       # Modele ORM (lekarze, pacjenci, badania)
 │   │   └── main.py         # Punkt wejścia aplikacji, CORS, routery
+│   ├── tests/              # Testy pytest (jednostkowe i integracyjne API)
 │   ├── Dockerfile
-│   └── requirements.txt
+│   ├── requirements.txt
+│   ├── requirements-dev.txt # pytest, ruff
+│   ├── pytest.ini
+│   └── ruff.toml
 ├── frontend/
 │   ├── src/
 │   │   ├── app/            # Layout, strona główna (formularz EMG)
 │   │   ├── components/     # DescriptionEditor, komponenty UI (Shadcn)
 │   │   └── lib/            # Klient API, utils
 │   ├── Dockerfile
+│   ├── vitest.config.ts
 │   └── package.json
 ├── docker-compose.yml
 ├── .env.example
@@ -99,6 +104,44 @@ Możesz zmienić wartości w pliku `.env` (zmienne `SEED_DOCTOR_EMAIL`, `SEED_DO
    ```bash
    npm run dev
    ```
+
+---
+
+## Testy i jakość kodu
+
+### Backend
+
+```bash
+cd backend
+pip install -r requirements-dev.txt
+python -m ruff format --check app tests && python -m ruff check app tests
+python -m pytest
+```
+
+- **pytest** — testy jednostkowe (`services`: normy, anonimizacja) oraz integracyjne HTTP (`TestClient`: `/health`, logowanie, `/analyze-emg`, zapis badania).
+- **ruff** — sprawdzanie stylu importów, prostych błędów i formatowanie (konfiguracja w `backend/ruff.toml`).
+- Testy API używają SQLite w pamięci (`DATABASE_URL` ustawiane w `tests/conftest.py`).
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run check    # ESLint + Prettier + TypeScript + Vitest (jedna komenda)
+```
+
+Albo osobno: `npm run lint`, `npm run format:check`, `npm run typecheck`, `npm run test:run`.
+
+- **ESLint** (`next lint`) — reguły Next.js i TypeScript (`eslint-config-prettier` wyłącza konflikty z Prettier).
+- **Prettier** (+ `prettier-plugin-tailwindcss`) — jednolity styl i kolejność klas Tailwind.
+- **Vitest** + **Testing Library** — testy pomocnicze (`cn`) i komponent `DescriptionEditor`.
+
+### GitHub Actions
+
+Przy pushu do gałęzi `main`, pull requeście oraz ręcznym uruchomieniu workflow ([Actions](https://docs.github.com/en/actions)) plik [`.github/workflows/ci.yml`](.github/workflows/ci.yml) uruchamia:
+
+- **backend** — `ruff format --check`, `ruff check`, `pytest`;
+- **frontend** — `npm run check` (ESLint, Prettier, TypeScript, Vitest).
 
 ---
 
