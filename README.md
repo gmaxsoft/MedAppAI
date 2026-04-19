@@ -6,6 +6,19 @@ Dane identyfikujące pacjenta są **anonimizowane przed wysłaniem treści do AP
 
 ---
 
+## Słownik: EMG i ENG
+
+**EMG (elektromiografia)**  
+Badanie elektrofizjologiczne oceniające **czynność elektryczną mięśni** i — w szerszym ujęciu klinicznym — stan **nerwów obwodowych** i połączeń nerwowo-mięśniowych. Najczęściej wykonuje się je **igłowo** (w tkance mięśnia rejestruje się potencjały w spoczynku i przy napinaniu), czasem powierzchniowo. EMG pomaga m.in. w rozpoznawaniu neuropatii, miopatii, zaburzeń przewodzenia na poziomie płytki nerwowo-mięśniowej oraz w lokalizacji uszkodzenia (np. korzeń vs splot vs pojedynczy nerw).
+
+**ENG**  
+W polskiej praktyce określenie **ENG** bywa używane dla części badania polegającej na **podrażnieniu nerwu** impulsem elektrycznym i rejestracji odpowiedzi z mięśnia lub samego nerwu — to **badanie przewodzenia nerwowo-mięśniowego** (latencje, amplitudy, często także prędkość przewodzenia; np. odpowiedź mięśniowa **CMAP**, fala **F**). ENG służy przede wszystkim do oceny **uszkodzenia mieliny i aksonów**, rozróżniania procesów „czysto” nerwowych od mięśniowych oraz monitorowania przebiegu neuropatii i po urazach.
+
+**Dlaczego razem (EMG / ENG)**  
+W jednej wizycie elektrofizjologicznej często łączy się **przewodzenie** (ENG / badanie z podrażnieniem) z **elektromiografią igłową** (EMG), żeby uzyskać pełniejszy obraz: od **drogi przewodzenia** po **czynność mięśnia**. Niniejsza aplikacja wspiera zestawianie **parametrów liczbowych** z takich badań z normami i przygotowanie **opisu dokumentacyjnego**.
+
+---
+
 ## Stack technologiczny
 
 | Warstwa | Technologie |
