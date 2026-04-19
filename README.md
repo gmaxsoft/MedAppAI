@@ -6,7 +6,7 @@ Dane identyfikujące pacjenta są **anonimizowane przed wysłaniem treści do AP
 
 ---
 
-## Słownik: EMG i ENG
+## EMG i ENG
 
 **EMG (elektromiografia)**  
 Badanie elektrofizjologiczne oceniające **czynność elektryczną mięśni** i — w szerszym ujęciu klinicznym — stan **nerwów obwodowych** i połączeń nerwowo-mięśniowych. Najczęściej wykonuje się je **igłowo** (w tkance mięśnia rejestruje się potencjały w spoczynku i przy napinaniu), czasem powierzchniowo. EMG pomaga m.in. w rozpoznawaniu neuropatii, miopatii, zaburzeń przewodzenia na poziomie płytki nerwowo-mięśniowej oraz w lokalizacji uszkodzenia (np. korzeń vs splot vs pojedynczy nerw).
