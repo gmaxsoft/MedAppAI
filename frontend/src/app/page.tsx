@@ -2,9 +2,19 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { DescriptionEditor, type DeviationFlag } from "@/components/DescriptionEditor";
+import {
+  DescriptionEditor,
+  type DeviationFlag,
+} from "@/components/DescriptionEditor";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { apiFetch, apiUrl, getStoredToken, setStoredToken } from "@/lib/api";
@@ -103,7 +113,9 @@ export default function Home() {
 
   useEffect(() => {
     if (!token) return;
-    loadPatients().catch((e: unknown) => setError(e instanceof Error ? e.message : "Błąd listy pacjentów"));
+    loadPatients().catch((e: unknown) =>
+      setError(e instanceof Error ? e.message : "Błąd listy pacjentów"),
+    );
   }, [token, loadPatients]);
 
   const normsObject = useMemo(() => {
@@ -174,7 +186,10 @@ export default function Home() {
         last_name: newLast.trim(),
       };
       if (newPesel.trim()) body.pesel = newPesel.trim();
-      const p = await apiFetch<Patient>("/patients", { method: "POST", body: JSON.stringify(body) });
+      const p = await apiFetch<Patient>("/patients", {
+        method: "POST",
+        body: JSON.stringify(body),
+      });
       setPatients((prev) => [p, ...prev]);
       setPatientId(String(p.id));
       setNewFirst("");
@@ -280,7 +295,8 @@ export default function Home() {
               MedApp EMG / ENG
             </h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              Analiza parametrów nerwowo-mięśniowych, szkic opisu AI i zatwierdzenie dokumentacji.
+              Analiza parametrów nerwowo-mięśniowych, szkic opisu AI i
+              zatwierdzenie dokumentacji.
             </p>
           </div>
           <div className="text-xs text-muted-foreground">
@@ -293,7 +309,9 @@ export default function Home() {
         {!token ? (
           <Card className="mx-auto max-w-md">
             <CardHeader>
-              <CardTitle>{authMode === "login" ? "Logowanie lekarza" : "Rejestracja"}</CardTitle>
+              <CardTitle>
+                {authMode === "login" ? "Logowanie lekarza" : "Rejestracja"}
+              </CardTitle>
               <CardDescription>
                 {authMode === "login"
                   ? "Zaloguj się tokenem JWT, aby korzystać z analizy i zapisu."
@@ -358,7 +376,7 @@ export default function Home() {
                 </>
               )}
               {error && (
-                <p className="rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+                <p className="border-destructive/30 bg-destructive/10 rounded-lg border px-3 py-2 text-sm text-destructive">
                   {error}
                 </p>
               )}
@@ -366,19 +384,37 @@ export default function Home() {
             <CardFooter className="flex flex-wrap gap-2">
               {authMode === "login" ? (
                 <>
-                  <Button type="button" disabled={busy} onClick={() => void login()}>
+                  <Button
+                    type="button"
+                    disabled={busy}
+                    onClick={() => void login()}
+                  >
                     Zaloguj
                   </Button>
-                  <Button type="button" variant="outline" disabled={busy} onClick={() => setAuthMode("register")}>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    disabled={busy}
+                    onClick={() => setAuthMode("register")}
+                  >
                     Rejestracja
                   </Button>
                 </>
               ) : (
                 <>
-                  <Button type="button" disabled={busy} onClick={() => void register()}>
+                  <Button
+                    type="button"
+                    disabled={busy}
+                    onClick={() => void register()}
+                  >
                     Utwórz konto
                   </Button>
-                  <Button type="button" variant="ghost" disabled={busy} onClick={() => setAuthMode("login")}>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    disabled={busy}
+                    onClick={() => setAuthMode("login")}
+                  >
                     Wróć do logowania
                   </Button>
                 </>
@@ -392,9 +428,16 @@ export default function Home() {
                 <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-4">
                   <div>
                     <CardTitle>Sesja</CardTitle>
-                    <CardDescription>Jesteś zalogowany jako lekarz.</CardDescription>
+                    <CardDescription>
+                      Jesteś zalogowany jako lekarz.
+                    </CardDescription>
                   </div>
-                  <Button type="button" variant="outline" size="sm" onClick={logout}>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={logout}
+                  >
                     Wyloguj
                   </Button>
                 </CardHeader>
@@ -403,7 +446,10 @@ export default function Home() {
               <Card>
                 <CardHeader>
                   <CardTitle>Pacjent</CardTitle>
-                  <CardDescription>Wybierz pacjenta lub dodaj nowego (dane identyfikujące nie są wysyłane do AI).</CardDescription>
+                  <CardDescription>
+                    Wybierz pacjenta lub dodaj nowego (dane identyfikujące nie
+                    są wysyłane do AI).
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="flex flex-col gap-4">
                   <div className="grid gap-2">
@@ -424,18 +470,38 @@ export default function Home() {
                   <div className="grid gap-3 sm:grid-cols-3">
                     <div className="grid gap-2">
                       <Label htmlFor="np">Imię</Label>
-                      <Input id="np" value={newFirst} onChange={(e) => setNewFirst(e.target.value)} placeholder="Jan" />
+                      <Input
+                        id="np"
+                        value={newFirst}
+                        onChange={(e) => setNewFirst(e.target.value)}
+                        placeholder="Jan"
+                      />
                     </div>
                     <div className="grid gap-2">
                       <Label htmlFor="nl">Nazwisko</Label>
-                      <Input id="nl" value={newLast} onChange={(e) => setNewLast(e.target.value)} placeholder="Kowalski" />
+                      <Input
+                        id="nl"
+                        value={newLast}
+                        onChange={(e) => setNewLast(e.target.value)}
+                        placeholder="Kowalski"
+                      />
                     </div>
                     <div className="grid gap-2">
                       <Label htmlFor="pesel">PESEL (opcj.)</Label>
-                      <Input id="pesel" value={newPesel} onChange={(e) => setNewPesel(e.target.value)} placeholder="11 cyfr" />
+                      <Input
+                        id="pesel"
+                        value={newPesel}
+                        onChange={(e) => setNewPesel(e.target.value)}
+                        placeholder="11 cyfr"
+                      />
                     </div>
                   </div>
-                  <Button type="button" variant="secondary" disabled={busy || !newFirst.trim() || !newLast.trim()} onClick={() => void createPatient()}>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    disabled={busy || !newFirst.trim() || !newLast.trim()}
+                    onClick={() => void createPatient()}
+                  >
                     Dodaj pacjenta
                   </Button>
                 </CardContent>
@@ -444,7 +510,10 @@ export default function Home() {
               <Card>
                 <CardHeader>
                   <CardTitle>Normy referencyjne (JSON)</CardTitle>
-                  <CardDescription>Edytuj progi dla parametrów i wpisów specyficznych dla nerwu.</CardDescription>
+                  <CardDescription>
+                    Edytuj progi dla parametrów i wpisów specyficznych dla
+                    nerwu.
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <textarea
@@ -458,17 +527,24 @@ export default function Home() {
               <Card>
                 <CardHeader>
                   <CardTitle>Dane badania EMG</CardTitle>
-                  <CardDescription>Latencja, amplituda CMAP, fala F, prędkość przewodzenia.</CardDescription>
+                  <CardDescription>
+                    Latencja, amplituda CMAP, fala F, prędkość przewodzenia.
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="flex flex-col gap-4">
                   {rows.map((row) => (
-                    <div key={row.id} className="rounded-xl border border-border p-4">
+                    <div
+                      key={row.id}
+                      className="rounded-xl border border-border p-4"
+                    >
                       <div className="mb-3 grid gap-2">
                         <Label>Nerw</Label>
                         <select
                           className="flex h-10 w-full rounded-lg border border-input bg-background px-3 text-sm shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
                           value={row.nerve_key}
-                          onChange={(e) => updateRow(row.id, { nerve_key: e.target.value })}
+                          onChange={(e) =>
+                            updateRow(row.id, { nerve_key: e.target.value })
+                          }
                         >
                           {NERVE_OPTIONS.map((o) => (
                             <option key={o.value} value={o.value}>
@@ -483,7 +559,9 @@ export default function Home() {
                           <Input
                             inputMode="decimal"
                             value={row.latency_ms}
-                            onChange={(e) => updateRow(row.id, { latency_ms: e.target.value })}
+                            onChange={(e) =>
+                              updateRow(row.id, { latency_ms: e.target.value })
+                            }
                           />
                         </div>
                         <div className="grid gap-2">
@@ -491,7 +569,11 @@ export default function Home() {
                           <Input
                             inputMode="decimal"
                             value={row.amplitude_mv}
-                            onChange={(e) => updateRow(row.id, { amplitude_mv: e.target.value })}
+                            onChange={(e) =>
+                              updateRow(row.id, {
+                                amplitude_mv: e.target.value,
+                              })
+                            }
                           />
                         </div>
                         <div className="grid gap-2">
@@ -499,7 +581,11 @@ export default function Home() {
                           <Input
                             inputMode="decimal"
                             value={row.f_wave_latency_ms}
-                            onChange={(e) => updateRow(row.id, { f_wave_latency_ms: e.target.value })}
+                            onChange={(e) =>
+                              updateRow(row.id, {
+                                f_wave_latency_ms: e.target.value,
+                              })
+                            }
                           />
                         </div>
                         <div className="grid gap-2">
@@ -507,14 +593,25 @@ export default function Home() {
                           <Input
                             inputMode="decimal"
                             value={row.conduction_velocity_m_s}
-                            onChange={(e) => updateRow(row.id, { conduction_velocity_m_s: e.target.value })}
+                            onChange={(e) =>
+                              updateRow(row.id, {
+                                conduction_velocity_m_s: e.target.value,
+                              })
+                            }
                           />
                         </div>
                       </div>
                     </div>
                   ))}
                   <div className="flex flex-wrap gap-2">
-                    <Button type="button" variant="outline" size="sm" onClick={() => setRows((r) => [...r, emptyRow("nerw_pośrodkowy")])}>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() =>
+                        setRows((r) => [...r, emptyRow("nerw_pośrodkowy")])
+                      }
+                    >
                       Dodaj nerw
                     </Button>
                     <Button
@@ -529,22 +626,37 @@ export default function Home() {
                   </div>
                 </CardContent>
                 <CardFooter className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap">
-                  <Button type="button" disabled={busy} onClick={() => void analyze()}>
+                  <Button
+                    type="button"
+                    disabled={busy}
+                    onClick={() => void analyze()}
+                  >
                     Generuj analizę
                   </Button>
-                  <Button type="button" variant="secondary" disabled={busy} onClick={() => void saveExamination()}>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    disabled={busy}
+                    onClick={() => void saveExamination()}
+                  >
                     Zatwierdź i zapisz
                   </Button>
                 </CardFooter>
               </Card>
 
               {error && token && (
-                <p className="rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</p>
+                <p className="border-destructive/30 bg-destructive/10 rounded-lg border px-4 py-3 text-sm text-destructive">
+                  {error}
+                </p>
               )}
             </div>
 
             <div className="min-h-[520px] lg:sticky lg:top-8">
-              <DescriptionEditor value={draft} onChange={setDraft} deviations={deviations} />
+              <DescriptionEditor
+                value={draft}
+                onChange={setDraft}
+                deviations={deviations}
+              />
             </div>
           </div>
         )}

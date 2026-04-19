@@ -14,7 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "MedApp EMG — analiza badań",
-  description: "Aplikacja do analizy EMG/ENG z draftem opisu AI i zapisem dokumentacji.",
+  description:
+    "Aplikacja do analizy EMG/ENG z draftem opisu AI i zapisem dokumentacji.",
 };
 
 export default function RootLayout({

@@ -11,7 +11,10 @@ export function setStoredToken(token: string | null) {
   else localStorage.removeItem("access_token");
 }
 
-export async function apiFetch<T>(path: string, init: RequestInit & { skipAuth?: boolean } = {}): Promise<T> {
+export async function apiFetch<T>(
+  path: string,
+  init: RequestInit & { skipAuth?: boolean } = {},
+): Promise<T> {
   const headers = new Headers(init.headers);
   const body = init.body;
   const isForm = typeof FormData !== "undefined" && body instanceof FormData;
@@ -28,7 +31,10 @@ export async function apiFetch<T>(path: string, init: RequestInit & { skipAuth?:
     let detail = res.statusText;
     try {
       const errBody = await res.json();
-      detail = typeof errBody.detail === "string" ? errBody.detail : JSON.stringify(errBody);
+      detail =
+        typeof errBody.detail === "string"
+          ? errBody.detail
+          : JSON.stringify(errBody);
     } catch {
       try {
         detail = await res.text();

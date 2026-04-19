@@ -1,6 +1,12 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -16,7 +22,12 @@ export type DeviationFlag = {
 function formatDeviation(d: DeviationFlag, index: number) {
   const nerve = d.nerve_key ?? "?";
   const param = d.parameter ?? "?";
-  const dir = d.direction === "above" ? "powyżej normy" : d.direction === "below" ? "poniżej normy" : (d.direction ?? "");
+  const dir =
+    d.direction === "above"
+      ? "powyżej normy"
+      : d.direction === "below"
+        ? "poniżej normy"
+        : (d.direction ?? "");
   const val = d.value != null ? String(d.value) : "?";
   const lim = d.limit != null ? String(d.limit) : "?";
   return `${index + 1}. ${nerve} — ${param}: ${val} (${dir}, granica ${lim})`;
@@ -33,11 +44,14 @@ export function DescriptionEditor({ value, onChange, deviations }: Props) {
     <Card className="flex h-full min-h-0 flex-col">
       <CardHeader>
         <CardTitle>DescriptionEditor</CardTitle>
-        <CardDescription>Szkic opisu wygenerowany przez model AI — zweryfikuj treść przed zatwierdzeniem.</CardDescription>
+        <CardDescription>
+          Szkic opisu wygenerowany przez model AI — zweryfikuj treść przed
+          zatwierdzeniem.
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-1 flex-col gap-4 overflow-auto">
         {deviations.length > 0 ? (
-          <div className="rounded-xl border border-border bg-muted/40 px-4 py-3 text-sm leading-relaxed text-foreground">
+          <div className="bg-muted/40 rounded-xl border border-border px-4 py-3 text-sm leading-relaxed text-foreground">
             <p className="font-medium text-foreground">Flagi od norm</p>
             <ul className="mt-2 space-y-1 pl-4">
               {deviations.map((d, i) => (
@@ -48,7 +62,9 @@ export function DescriptionEditor({ value, onChange, deviations }: Props) {
             </ul>
           </div>
         ) : (
-          <p className="text-sm text-muted-foreground">Brak przekroczeń względem zadanych progów.</p>
+          <p className="text-sm text-muted-foreground">
+            Brak przekroczeń względem zadanych progów.
+          </p>
         )}
         <div className="grid min-h-0 flex-1 gap-2">
           <Label htmlFor="emg-draft">Treść opisu</Label>
